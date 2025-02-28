@@ -3,10 +3,18 @@ package main
 import "fmt"
 
 func main() {
-	figuras := []string{"circulo", "cuadrado", "triangulo", "rombo", "trapecio", "heptagono"}
-	figurasCopia := make([]string, len(figuras))
-	copy(figurasCopia, figuras)
-	figuras = append(figuras[:1], figuras[2:]...)
-	fmt.Println(figuras)
-	fmt.Println(figurasCopia)
+	var usuarios int
+	fmt.Println("cuantos usuarios quieres crear?")
+	fmt.Scan(&usuarios)
+	nombres := make([]string, usuarios)
+
+	for i := range nombres {
+		var nombre string
+		fmt.Printf("Escoje el nombre del usuario %d\n", i+1)
+		fmt.Scan(&nombre)
+		nombres[i] = nombre
+	}
+
+	fmt.Println("\nLista completa de usuarios: ")
+	fmt.Println(nombres)
 }
