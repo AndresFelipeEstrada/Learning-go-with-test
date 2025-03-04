@@ -1,20 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+)
+
+func Greet(writer io.Writer, name string) {
+	fmt.Fprintf(writer, "Hello, %s", name)
+}
+
+func MyGreeterHandler(w http.ResponseWriter, r *http.Request) {
+	Greet(w, "Word")
+}
 
 func main() {
-	var usuarios int
-	fmt.Println("cuantos usuarios quieres crear?")
-	fmt.Scan(&usuarios)
-	nombres := make([]string, usuarios)
-
-	for i := range nombres {
-		var nombre string
-		fmt.Printf("Escoje el nombre del usuario %d\n", i+1)
-		fmt.Scan(&nombre)
-		nombres[i] = nombre
-	}
-
-	fmt.Println("\nLista completa de usuarios: ")
-	fmt.Println(nombres)
+	log.Fatal(http.ListenAndServe(":5001", http.HandlerFunc(MyGreeterHandler)))
 }
